@@ -6,7 +6,7 @@ public class MusaCtrl : MonoBehaviour
 {
     private Ray ray;
     private RaycastHit hit;
-    private Camera camera;
+    private new Camera camera;
     private Transform tr;
 
     public float damping = 10.0f;

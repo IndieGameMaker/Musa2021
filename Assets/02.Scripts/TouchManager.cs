@@ -8,7 +8,7 @@ public class TouchManager : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
     private bool isMouseClick => Input.GetMouseButtonDown(0);
-    private Camera camera;
+    private new Camera camera;
 
     // Start is called before the first frame update
     void Start()
