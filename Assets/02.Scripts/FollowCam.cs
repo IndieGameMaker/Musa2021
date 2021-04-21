@@ -23,11 +23,12 @@ public class FollowCam : MonoBehaviour
         Vector3 pos = targetTr.position 
                       + (Vector3.right * distance)
                       + (Vector3.up * height);
-
+        
+        //카메라의 부드러운 이동처리
         transform.position = Vector3.Lerp(transform.position,
                                           pos,
                                           Time.deltaTime * damping);
-
+        //
         transform.LookAt(targetTr.position);
     }
 }
