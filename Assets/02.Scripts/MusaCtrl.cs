@@ -23,6 +23,7 @@ public class MusaCtrl : MonoBehaviour
     {
         ray = camera.ScreenPointToRay(Input.mousePosition);
 
+#if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(ray, out hit, 100.0f, 1<<8))
@@ -30,6 +31,22 @@ public class MusaCtrl : MonoBehaviour
                 movePos = hit.point;
             }
         }
+#endif
+#if UNITY_ANDROID
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            ray = camera.ScreenPointToRay(touch.position);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                if (Physics.Raycast(ray, out hit, 100.0f, 1<<8))
+                {
+                    movePos = hit.point;
+                }
+            }
+        }
+#endif
 
         if ((movePos - tr.position).sqrMagnitude >= 0.2f * 0.2f)
         {

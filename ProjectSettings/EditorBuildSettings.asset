@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/01.Scenes/Musa.unity
+    guid: 7ff22f2f766ad45dab32d9c6e37e4478
   m_configObjects: {}
