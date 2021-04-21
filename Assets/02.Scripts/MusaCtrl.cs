@@ -31,12 +31,16 @@ public class MusaCtrl : MonoBehaviour
             }
         }
 
-        //벡터의 뺄셈   A - B  ==>   B좌표에서 A좌표로 방향 벡터     
-        Vector3 dir = movePos - tr.position;
-        Quaternion rot = Quaternion.LookRotation(dir);
-        tr.rotation = Quaternion.Slerp(tr.rotation,
-                                       rot,
-                                       Time.deltaTime * damping);
+        if ((movePos - tr.position).sqrMagnitude >= 0.2f * 0.2f)
+        {
+            //벡터의 뺄셈   A - B  ==>   B좌표에서 A좌표로 방향 벡터     
+            Vector3 dir = movePos - tr.position;
+            Quaternion rot = Quaternion.LookRotation(dir);
+            tr.rotation = Quaternion.Slerp(tr.rotation,
+                                        rot,
+                                        Time.deltaTime * damping);
 
+            tr.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
+        }
     }
 }
