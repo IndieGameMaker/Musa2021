@@ -20,9 +20,18 @@ public class EnemyCtrl : MonoBehaviour
         points = GameObject.Find("WayPointGroup").GetComponentsInChildren<Transform>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        //다음 WayPoint위치로 바라보는 각도 산출
+        Vector3 dir = points[nextIdx].position - transform.position;  
+        //벡터를 Quaternion 변환
+        Quaternion rot = Quaternion.LookRotation(dir);
+
+        //구면선형 보간(Spherecal Linear Interpolate)을 사용해서 회전
+        transform.rotation = Quaternion.Slerp(transform.rotation,
+                                              rot,
+                                              Time.deltaTime * damping);
+        //이동(직진)
+        transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
     }
 }
