@@ -8,15 +8,18 @@ public class MusaCtrl : MonoBehaviour
     private RaycastHit hit;
     private new Camera camera;
     private Transform tr;
+    private Animator anim;
 
     public float damping = 10.0f;
     public float moveSpeed = 5.0f;
     private Vector3 movePos = Vector3.zero;
+    private readonly int hashRun = Animator.StringToHash("IsRun");
 
     void Start()
     {
         camera = Camera.main;
         tr = GetComponent<Transform>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -58,6 +61,11 @@ public class MusaCtrl : MonoBehaviour
                                         Time.deltaTime * damping);
 
             tr.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
+            anim.SetBool(hashRun, true);
+        }
+        else
+        {
+            anim.SetBool(hashRun, false);
         }
     }
 }
