@@ -11,19 +11,35 @@ public class EnemyCtrl : MonoBehaviour
     public int nextIdx = 1;
 
     private new Transform transform;
+    private Transform playerTr;
+
     public float moveSpeed = 2.0f;
     public float damping = 10.0f;
+    public float traceDist = 5.0f;
+
+    private Vector3 movePos;
 
     void Start()
     {
         transform = GetComponent<Transform>();
+        playerTr = GameObject.FindGameObjectWithTag("Player").transform;
         points = GameObject.Find("WayPointGroup").GetComponentsInChildren<Transform>();
     }
 
     void Update()
     {
+        // 주인공과 적캐릭터의 거리가 traceDist 이내일 경우
+        if ((playerTr.position - transform.position).sqrMagnitude <= traceDist * traceDist)
+        {
+            movePos = playerTr.position;
+        }
+        else
+        {
+            movePos = points[nextIdx].position;
+        }
+
         //다음 WayPoint위치로 바라보는 각도 산출
-        Vector3 dir = points[nextIdx].position - transform.position;  
+        Vector3 dir = movePos - transform.position;  
         //벡터를 Quaternion 변환
         Quaternion rot = Quaternion.LookRotation(dir);
 
@@ -41,6 +57,12 @@ public class EnemyCtrl : MonoBehaviour
         if (coll.CompareTag("WAY_POINT"))
         {
             nextIdx = (++nextIdx >= points.Length) ? 1 : nextIdx;
+
+            // nextIdx = nextIdx +1;
+            // if (nextIdx >= points.Length)
+            // {
+            //     nextIdx = 1;
+            // }
         }
     }
 
