@@ -34,4 +34,14 @@ public class EnemyCtrl : MonoBehaviour
         //이동(직진)
         transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
     }
+
+    void OnTriggerEnter(Collider coll)
+    {
+        //WAY_POINT 도착했을 때
+        if (coll.CompareTag("WAY_POINT"))
+        {
+            nextIdx = (++nextIdx >= points.Length) ? 1 : nextIdx;
+        }
+    }
+
 }
